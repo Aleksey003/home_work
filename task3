@@ -1,0 +1,60 @@
+class Car
+  attr_accessor :engine, :size, :turbo
+  
+  def initialize h = {}
+    h.each do |key, val|
+    send "#{key}=",val	  
+    end
+	yield self if block_given?
+  end 
+  
+  def engine_info
+	if @turbo
+	  info = "Turbo #{@engine} engine #{@size.to_f}"
+    else	  
+      info =  "#{@size} #{@engine.capitalize } engine"
+	end
+	p info
+  end
+  
+end
+
+#rspec
+describe Car do
+  it "write attributes size & engine" do
+    car = Car.new
+	car.engine = :diesel ; car.size = 1.6
+	car.size.should == 1.6 
+	car.engine.should == :diesel
+  end
+  
+  it "method engine_info should print '1.6 Diesel engine'" do
+    car = Car.new
+	car.engine = :diesel ; car.size = 1.6
+	car.size.should == 1.6 
+	car.engine_info.should == "1.6 Diesel engine"
+  end
+  
+  it "Car.new(engine: :gas, size: 1.6).engine_info should print '1.6 Gas engine'" do
+    Car.new(engine: :gas, size: 1.6).engine_info.should == "1.6 Gas engine"
+  end 
+
+  #it "Car.new.engine_info should fail" do
+  #  Car.new.engine_info.should fail
+  #end
+ # it "Car.new(asdasd: true) #should fail" do
+ #   Car.new(asdasd: true).should fail
+ # end
+  
+  it "Car.new(engine: :diesel, size: 2, turbo: true).engine_info should 'Turbo diesel engine 2.0'" do
+    Car.new(engine: :diesel, size: 2, turbo: true).engine_info.should == "Turbo diesel engine 2.0"
+  end
+  
+  it "Car should initial whith block" do
+    car = Car.new do
+	  self.engine = :diesel
+	  self.size = 3
+	end
+	car.engine_info.should = "3 Diesel engine"
+  end
+end
