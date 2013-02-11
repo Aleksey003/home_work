@@ -1,0 +1,6 @@
+class Codemaker
+  def generate_code
+    randonString = (0...4).map { rand(1..6)}.join
+    randonString
+  end
+end
