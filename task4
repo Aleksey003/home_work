@@ -1,6 +1,22 @@
 class Codemaker
-  def generate_code
-    randonString = (0...4).map { rand(1..6)}.join
-    randonString
+  def initialize
+    @randonString = (0...4).map { rand(1..6)}.join    
   end
+  
+  def guess(chances,guess)
+    answer = []
+    @randonString.each do |key, val|
+      if val = guess[key]
+        answer << "+"
+      else
+      answe << "-"
+      end
+    end
+	p answer
+  end
+end
+
+class Codebreaker
+  def initialize(chances = 0)
+  end  
 end
