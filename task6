@@ -1,0 +1,24 @@
+class App
+  def call(env)
+		resp = env["REQUEST_PATH"].delete('/')
+		resp = "root" if resp.empty?
+		[200, {"Content-Type"=> "text/plain"}, [send(resp)]]
+	end
+	def memory
+		"Memory is it"
+	end
+
+	def disk
+	"Disk is it"
+	end
+	def help
+ 		"get"
+	end
+	def root
+		"root"
+	end
+	def method_missing(method)
+		"Missing path: #{method}"
+	end
+end
+run App.new
